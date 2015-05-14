@@ -4,12 +4,15 @@
 {% block content %}
   <h1>event</h1>
   <form action="" method="post" name="event">
-      
+      {{ form.hidden_tag() }}
       <p>
           Please enter your Event:<br>
           {{ form.name(size=80) }}<br>
+		  {% for error in form.name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}<br>
       </p>
       <p>{{ form.is_public }} Is Public?</p>
-      <p><input type="submit" value="Sign In"></p>
+      <p><input type="submit" value="Enter"></p>
   </form>
 {% endblock %}

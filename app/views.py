@@ -1,6 +1,6 @@
-from flask import render_template
+from flask import render_template, flash, redirect
 from app import app
-from .forms import EventForm
+from .forms import PolicyForm
 #from flask.ext.wtf import Form
 #from wtforms.fields import BooleanField, TextField
 
@@ -23,15 +23,25 @@ def index():
                            user=user,
                            posts=posts)
 						   
-@app.route('/event', methods=['GET', 'POST'])
-def event():
+@app.route('/policy', methods=['GET', 'POST'])
+def policy():
 	json = {
-		'name': 'First Event',
-		'location': {'name': 'some location'}
+		'name': 'Mark',
+		'is_public': True,
+		'address': {
+			"state": "MO",
+			"street": "Concord St",
+			'number': '8100'
+		}
 	}
 	
-	form = EventForm.from_json(json)
-	
-	return render_template('event.html', 
-                           title='Event Form',
+	form = PolicyForm.from_json(json)
+	flash('data=%s' % str(form.data))
+              
+	print form.data
+	return render_template('policy.html', 
+                           title='Policy Form',
                            form=form)
+						   
+	
+		
