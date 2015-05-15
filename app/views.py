@@ -26,12 +26,23 @@ def index():
 @app.route('/policy', methods=['GET', 'POST'])
 def policy():
 	json = {
-		'name': 'Mark',
-		'is_public': True,
-		'address': {
-			"state": "MO",
-			"street": "Concord St",
-			'number': '8100'
+		"policyNumber": "000000003",
+		"applicant": {
+			"firstName": "KATHY",
+			"lastName": "BOCKETT",
+			"age": 58,
+			"birthDate": "1956-09-10",
+			"id": "e306e295bd1747b5b7422e85393cf7f0"
+		},
+		"address": {
+			"city": "Skokie",
+			"county": "Cook",
+			"id": "216bdffd48ec4769a460c32f4330dfb4",
+			"latitude": 42.0101,
+			"longitude": -87.75354,
+			"state": "IL",
+			"street": "5014 Estes Ave",
+			"zip": "60077-3520"
 		}
 	}
 	
