@@ -1,0 +1,11 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Policy</h1>
+  
+<form action="/policy" method="POST" name='policy'>
+{{ form.policyNumber.label }} {{ form.policyNumber }}
+<p><input type="Submit" value="Update Policy"></p>
+</form>
+{% endblock %}

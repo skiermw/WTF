@@ -1,13 +1,19 @@
-from flask import render_template, flash, redirect
+from flask import render_template, flash, redirect, request, session
 from app import app
-from .forms import PolicyForm
+#from .forms import PolicyForm, SelectPolForm, Drivers, Vehicles
+from .form_gen import Policy, SelectPolForm, Drivers, Vehicles
 #from flask.ext.wtf import Form
+#from wtforms_json import flatten_json
 #from wtforms.fields import BooleanField, TextField
+import json
+import urllib2
 
+
+	
 @app.route('/')
 @app.route('/index')
 def index():
-    user = {'nickname': 'Miguel'}  # fake user
+    user = {'nickname': 'Mark'}  # fake user
     posts = [  # fake array of posts
         { 
             'author': {'nickname': 'John'}, 
@@ -22,37 +28,59 @@ def index():
                            title='Home',
                            user=user,
                            posts=posts)
+
+@app.route('/select_pol', methods=['GET', 'POST'])
+def select_pol():
+    form = SelectPolForm()
+    if form.validate_on_submit():
+	
+		#flash('pol selected =%s' % (str(form.selPolicyNumber.data)).zfill(9))
+		session['polnum'] = (str(form.selPolicyNumber.data)).zfill(9)
+		return redirect('/policy')
+		
+    return render_template("select_pol.html",
+                           title='Policy Selection',
+                           form=form)	
+						   
 						   
 @app.route('/policy', methods=['GET', 'POST'])
 def policy():
-	json = {
-		"policyNumber": "000000003",
-		"applicant": {
-			"firstName": "KATHY",
-			"lastName": "BOCKETT",
-			"age": 58,
-			"birthDate": "1956-09-10",
-			"id": "e306e295bd1747b5b7422e85393cf7f0"
-		},
-		"address": {
-			"city": "Skokie",
-			"county": "Cook",
-			"id": "216bdffd48ec4769a460c32f4330dfb4",
-			"latitude": 42.0101,
-			"longitude": -87.75354,
-			"state": "IL",
-			"street": "5014 Estes Ave",
-			"zip": "60077-3520"
-		}
-	}
+	#url = 'http://dcdemoappsrv1:8081/direct/policy?policyNumber=000000005&everything=true&discounts=true&coverages=true&vehicles=true&nonDescribedVehicle=true&applicant=true&drivers=true&namedInsureds=true&additionalListedInsureds=true'
+	#polnum = '000000005'
+	polnum = session['polnum']
+	url = 'http://dcdemoappsrv1:8081/direct/policy?policyNumber=%s&everything=true&discounts=true&coverages=true&vehicles=true&nonDescribedVehicle=true&applicant=true&drivers=true&namedInsureds=true&additionalListedInsureds=true' % polnum
+	response = urllib2.urlopen(url).read()
+	pol_json = json.loads(response)
+	session['policy'] = pol_json
+	#form = PolicyForm.from_json(pol_json)
+	form = Policy.from_json(pol_json)
 	
-	form = PolicyForm.from_json(json)
-	flash('data=%s' % str(form.data))
-              
-	print form.data
+	#if request.method == 'POST' and form.validate():
+	if form.validate_on_submit():
+		#flash('data=%s' % str(form.data))
+		#flash('form pol no =%s' % str(form.policyNumber.data))
+		return redirect('/index')
+		
+	#flash('inital data=%s' % str(form.data))
 	return render_template('policy.html', 
                            title='Policy Form',
                            form=form)
 						   
 	
-		
+@app.route('/drivers', methods=['GET', 'POST'])
+def drivers():
+	pol_json = session['policy']
+	form = Drivers.from_json(pol_json)
+	
+	return render_template("drivers.html",
+                           title='Drivers',
+                           form=form)		
+
+@app.route('/vehicles', methods=['GET', 'POST'])						   
+def vehicles():
+	pol_json = session['policy']
+	form = Vehicles.from_json(pol_json)
+	
+	return render_template("vehicles.html",
+                           title='Vehicles',
+                           form=form)		

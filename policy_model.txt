@@ -1,0 +1,168 @@
+Policy {
+applicant (InquiryApplicant, optional),
+address (InquiryAddress, optional),
+channelOfOrigin (string, optional) = ['PublicWebsite' or 'CustomerRelationshipManagement' or 'Aggregator'],
+clueReferenceNumbers (Array[string], optional),
+company (string, optional),
+compositeDriverRatingFactorWithoutPoints (double, optional),
+compositeDriverRatingFactorWithPoints (double, optional),
+coverages (Array[InquiryCoverage], optional),
+discounts (Array[Discount], optional),
+drivers (Array[InquiryDriver], optional),
+effectiveDate (string, optional),
+expirationDate (string, optional),
+evidenceOfPriorInsurance (boolean, optional),
+familyNumber (string, optional),
+fcraNoticeRequired (boolean, optional),
+firstPolicyEffectiveDate (string, optional),
+forms (Array[string], optional),
+flyers (Array[string], optional),
+id (string, optional): guid of the policy,
+lineOfBusiness (string, optional),
+namedInsureds (Array[InquiryApplicant], optional),
+notices (Array[string], optional),
+policyNumber (string, optional),
+status (string, optional) = ['Pending'],
+term (integer, optional),
+totalPremium (double, optional),
+totalDiscount (double, optional),
+territory (string, optional),
+vehicles (InquiryVehicle, optional),
+nonDescribedVehicle (NonDescribedVehicle, optional)
+}
+InquiryApplicant {
+firstName (string, optional),
+lastName (string, optional),
+birthDate (string, optional): Birth date is masked as 0001-01-01 on all responses,
+age (integer, optional),
+id (string, optional),
+creditReport (CreditReport, optional)
+}
+InquiryAddress {
+id (string, optional),
+street (string, optional),
+street2 (string, optional),
+city (string, optional),
+state (string, optional),
+zip (string, optional),
+county (string, optional),
+latitude (double, optional),
+longitude (double, optional)
+}
+InquiryCoverage {
+id (string, optional),
+type (string, optional) = ['BodilyInjury' or 'PropertyDamage' or 'UninsuredMotorist' or 'MedicalPayments' or 'Collision' or 'Comprehensive' or 'RentalReimbursement'],
+limits (Array[Limit], optional),
+premium (double, optional)
+}
+Discount {
+id (string, optional),
+type (string, optional) = ['Antitheft' or 'AccidentPreventionCourse' or 'AdvancePurchase' or 'EvidenceOfPriorInsurance' or 'OnlineSubmission' or 'PayInFull']
+}
+InquiryDriver {
+accidentPreventionCourse (string, optional),
+age (integer, optional),
+birthDate (string, optional): Birth date is masked as 0001-01-01 on all responses,
+claims (Array[Claim], optional),
+creditReport (CreditReport, optional),
+firstName (string, optional),
+gender (string, optional) = ['Male' or 'Female'],
+id (string, optional),
+lastName (string, optional),
+manualMinorViolationCount (integer, optional),
+maritalStatus (string, optional) = ['Single' or 'Married' or 'Separated' or 'Divorced' or 'Widowed'],
+middleName (string, optional),
+licenseNumber (string, optional),
+licenseState (string, optional),
+licenseStatus (string, optional),
+sequence (integer, optional),
+suffix (string, optional) = ['Jr' or 'Sr' or 'II' or 'III' or 'IV' or 'V' or 'VI'],
+suspensions (Array[Suspension], optional),
+violationPoints (integer, optional),
+violations (Array[Violation], optional)
+}
+InquiryVehicle {
+id (string, optional),
+sequence (integer, optional),
+year (integer, optional),
+make (string, optional),
+model (string, optional),
+trim (string, optional),
+trimCode (string, optional),
+costSymbol (string, optional),
+vin (string, optional),
+lengthOfOwnership (string, optional) = ['ShorterThan90Days' or 'Between90DaysAndOneYear' or 'LongerThanOneYear'],
+previouslyInsured (boolean, optional),
+pseudoVin (string, optional),
+ownership (string, optional) = ['Owned' or 'Financed' or 'Leased'],
+businessUse (string, optional) = ['NonBusinessUse' or 'AllowableBusinessUse' or 'NonAllowableBusinessUse'],
+coverages (Array[InquiryCoverage], optional),
+permissiveUserCoverages (Array[Coverage], optional),
+financeCompany (InquiryFinanceCompany, optional)
+}
+NonDescribedVehicle {
+id (string, optional),
+coverages (Array[Coverage], optional),
+permissiveUserCoverages (Array[Coverage], optional)
+}
+CreditReport {
+id (string, optional),
+referenceNumber (string, optional),
+score (integer, optional),
+status (string, optional) = ['Scored' or 'NoScore' or 'NoHit'],
+reasons (Array[CreditScoreReason], optional)
+}
+Limit {
+id (string, optional),
+type (string) = ['PerPerson' or 'PerOccurrence' or 'Deductible'],
+value (integer)
+}
+Claim {
+id (string, optional),
+claimDate (string, optional),
+fault (string, optional) = ['AtFault' or 'NotAtFault' or 'Unknown'],
+chargeable (boolean, optional),
+payments (Array[ClaimPayment], optional)
+}
+Suspension {
+id (string, optional),
+code (string, optional),
+suspensionDate (object, optional),
+reinstatementDate (object, optional)
+}
+Violation {
+id (string, optional),
+code (string, optional),
+violationDate (object, optional),
+convictionDate (object, optional)
+}
+Coverage {
+id (string),
+type (string) = ['BodilyInjury' or 'PropertyDamage' or 'UninsuredMotorist' or 'MedicalPayments' or 'Collision' or 'Comprehensive' or 'RentalReimbursement'],
+limits (Array[Limit])
+}
+InquiryFinanceCompany {
+address (InquiryFinanceCompanyAddress, optional),
+id (string, optional),
+loanNumber (string, optional),
+name (string, optional)
+}
+CreditScoreReason {
+id (string, optional),
+code (string, optional),
+description (string, optional)
+}
+ClaimPayment {
+id (string, optional),
+type (string, optional) = ['BodilyInjury' or 'Collision' or 'Comprehensive' or 'Glass' or 'MedicalPayment' or 'Other' or 'PropertyDamage' or 'PersonalInjuryProtection' or 'RentalReimbursement' or 'SpousalLiability' or 'TowingAndLabor' or 'UninsuredMotorist' or 'UnderinsuredMotorist'],
+amount (double, optional),
+status (string, optional) = ['Open' or 'Closed' or 'Subrogation' or 'UnderDeductible' or 'PerilNotCovered' or 'Withdrawn']
+}
+InquiryFinanceCompanyAddress {
+id (string, optional),
+street (string, optional),
+street2 (string, optional),
+city (string, optional),
+state (string, optional),
+zip (string, optional)
+}
