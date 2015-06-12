@@ -1,10 +1,9 @@
 from flask import render_template, flash, redirect, request, session
 from app import app
-#from .forms import PolicyForm, SelectPolForm, Drivers, Vehicles
-from .form_gen import Policy, SelectPolForm, Drivers, Vehicles
-#from flask.ext.wtf import Form
-#from wtforms_json import flatten_json
-#from wtforms.fields import BooleanField, TextField
+from .forms import PolicyForm, SelectPolForm, Drivers, Vehicles
+#form .forms import SelectPolForm
+#from .form_gen import Policy, InquiryDrivers, Vehicles
+
 import json
 import urllib2
 
@@ -52,8 +51,8 @@ def policy():
 	response = urllib2.urlopen(url).read()
 	pol_json = json.loads(response)
 	session['policy'] = pol_json
-	#form = PolicyForm.from_json(pol_json)
-	form = Policy.from_json(pol_json)
+	form = PolicyForm.from_json(pol_json)
+	#form = Policy.from_json(pol_json)
 	
 	#if request.method == 'POST' and form.validate():
 	if form.validate_on_submit():
