@@ -100,9 +100,7 @@ class NonDescribedVehicle(Form):
 	coverages = FieldList(FormField(Coverage, label='Coverages'))
 	id = StringField('ID')
 	permissiveUserCoverages = FieldList(FormField(Coverage, label='Permissive User Coverages'))
-	
-
-	
+		
 class PolicyForm(Form):
 	policyNumber = TextField('Policy Number')
 	applicant = FormField(Applicant)
@@ -146,3 +144,7 @@ class Drivers(Form):
 	
 class Vehicles(Form):
 	vehicles = FieldList(FormField(Vehicle))
+
+class CreateQuoteFromPolicy(Form):
+	selPolicyNumber = TextField('Policy Number to Copy to Quote')
+	

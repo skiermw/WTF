@@ -1,11 +1,12 @@
 from flask import render_template, flash, redirect, request, session
 from app import app
-from .forms import PolicyForm, SelectPolForm, Drivers, Vehicles
+from .forms import PolicyForm, SelectPolForm, Drivers, Vehicles, CreateQuoteFromPolicy
 #form .forms import SelectPolForm
 #from .form_gen import Policy, InquiryDrivers, Vehicles
 
 import json
 import urllib2
+import requests
 
 
 	
@@ -40,8 +41,51 @@ def select_pol():
     return render_template("select_pol.html",
                            title='Policy Selection',
                            form=form)	
-						   
-						   
+@app.route('/copytoquote', methods=['GET', 'POST'])	
+def copy_to_quote():
+    form = CreateQuoteFromPolicy()
+    if form.validate_on_submit():
+		#flash('pol selected =%s' % (str(form.selPolicyNumber.data)).zfill(9))
+		session['polnum'] = (str(form.selPolicyNumber.data)).zfill(9)
+		return redirect('/changequote')
+		
+    return render_template("select_pol_copy_quote.html",
+                           title='Copy Policy To Quote',
+                           form=form)							   
+
+@app.route('/changequote', methods=['GET', 'POST'])
+def change_quote():
+	#url = 'http://dcdemoappsrv1:8081/direct/policy?policyNumber=000000005&everything=true&discounts=true&coverages=true&vehicles=true&nonDescribedVehicle=true&applicant=true&drivers=true&namedInsureds=true&additionalListedInsureds=true'
+	#polnum = '000000005'
+	polnum = session['polnum']
+	url = 'http://dcdemoappsrv1:8081/direct/policy?policyNumber=%s&everything=true&discounts=true&coverages=true&vehicles=true&nonDescribedVehicle=true&applicant=true&drivers=true&namedInsureds=true&additionalListedInsureds=true' % polnum
+	response = urllib2.urlopen(url).read()
+	pol_json = json.loads(response)
+	session['policy'] = pol_json
+	polid = 'a424a6597a234739b72386263d22c777'
+	streamrev = 1
+	#copy_to_quote_url = 'http://dcdemoappsrv1:8081/direct/policy/%s/%s/changeQuote' % (polid, streamrev)
+	copy_to_quote_url = 'http://dcdemoappsrv1:8083/direct/policy/f6bfc7bf1948432588ac70bdcd3e4fc8/1/changeQuote'
+	#flash(copy_to_quote_url)
+	#response = urllib2.urlopen(copy_to_quote_url).read()
+	#headers = {'Content-type': 'application/json'}
+	response = requests.post(copy_to_quote_url)
+	quote_json = response.json()
+	#quote_json = json.loads(response)
+	form = PolicyForm.from_json(quote_json)
+	
+	
+	#if request.method == 'POST' and form.validate():
+	if form.validate_on_submit():
+		#flash('data=%s' % str(form.data))
+		#flash('form pol no =%s' % str(form.policyNumber.data))
+		return redirect('/policy')
+		
+	#flash('inital data=%s' % str(form.data))
+	return render_template('policy.html', 
+                           title='Policy Form',
+                           form=form)
+	
 @app.route('/policy', methods=['GET', 'POST'])
 def policy():
 	#url = 'http://dcdemoappsrv1:8081/direct/policy?policyNumber=000000005&everything=true&discounts=true&coverages=true&vehicles=true&nonDescribedVehicle=true&applicant=true&drivers=true&namedInsureds=true&additionalListedInsureds=true'
