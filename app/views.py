@@ -1,11 +1,11 @@
 from flask import render_template, flash, redirect, request, session
 from app import app
-from .forms import NewQuote, PolicyForm, SelectPolForm, Drivers, Vehicles, CreateQuoteFromPolicy, ChangeQuote
+from .forms import NewQuote, ShowDiff, PolChgMessage, PolicyForm, SelectPolForm, Drivers, Vehicles, CreateQuoteFromPolicy, ChangeQuote
 from .model import Quote
 import json
 import urllib2
 import requests
-
+import json_delta
 
 	
 @app.route('/')
@@ -80,7 +80,7 @@ def new_quote():
 		headers={'content-type':'application/json'}
 		response = requests.post(url, data, headers=headers)
 		quote_json = response.json()
-		session['quote'] = quote_json
+		session['x_quote'] = quote_json
 		return redirect('/viewquote')
 		#flash('session %s' % session['quote'])
 		#return render_template("create_quote.html",
@@ -93,8 +93,8 @@ def new_quote():
 
 @app.route('/viewquote', methods=['GET', 'POST'])
 def view_quote():
-	polnum = session['polnum']
-	quote_json = session['quote']
+	
+	quote_json = session['x_quote']
 	form = ChangeQuote.from_json(quote_json)
 	return render_template('change_quote.html', 
                            title='View Quote',
@@ -142,16 +142,14 @@ def change_quote():
 	
 @app.route('/policy', methods=['GET', 'POST'])
 def policy():
-	#url = 'http://dcdemoappsrv1:8081/direct/policy?policyNumber=000000005&everything=true&discounts=true&coverages=true&vehicles=true&nonDescribedVehicle=true&applicant=true&drivers=true&namedInsureds=true&additionalListedInsureds=true'
-	#polnum = '000000005'
+	
 	polnum = session['polnum']
 	url = 'http://dcdemoappsrv1:8081/direct/policy?policyNumber=%s&everything=true&discounts=true&coverages=true&vehicles=true&nonDescribedVehicle=true&applicant=true&drivers=true&namedInsureds=true&additionalListedInsureds=true' % polnum
 	response = urllib2.urlopen(url).read()
 	pol_json = json.loads(response)
 	session['policy'] = pol_json
 	form = PolicyForm.from_json(pol_json)
-	#form = Policy.from_json(pol_json)
-	
+		
 	if form.validate_on_submit():
 		#flash('data=%s' % str(form.data))
 		#flash('form pol no =%s' % str(form.policyNumber.data))
@@ -179,4 +177,43 @@ def vehicles():
 	
 	return render_template("vehicles.html",
                            title='Vehicles',
-                           form=form)		
+                           form=form)
+						   
+@app.route('/polchgmessage', methods=['GET', 'POST'])
+def polchgmessage():
+	filename = 'polchangemessage.json'
+	infile = open(filename, 'r')
+
+	with open(filename) as data_file:
+		chg_message = json.load(data_file)
+	
+	form = PolChgMessage.from_json(chg_message)
+	diff_string = json_delta.diff(chg_message['previousPolicy'], chg_message['newPolicy'])	
+	#diff_json = json_delta.udiff(chg_message['previousPolicy'], chg_message['newPolicy'], patch=diff_string)
+	flash('diff_string = %s' % diff_string)
+	session['diff_json'] = diff_string
+	if form.validate_on_submit():
+		#flash('data=%s' % str(form.data))
+		#flash('form pol no =%s' % str(form.policyNumber.data))
+		return redirect('/showdiff')
+		
+	#flash('inital data=%s' % str(form.data))
+	return render_template('pol_chg_message.html', 
+                           title='Policy Change Message',
+                           form=form)
+
+@app.route('/showdiff', methods=['GET', 'POST'])
+def showdiff():
+	diff_json = session['diff_json']
+	
+	form = ShowDiff.from_json(diff_json)
+	
+	if form.validate_on_submit():
+		#flash('data=%s' % str(form.data))
+		#flash('form pol no =%s' % str(form.policyNumber.data))
+		return redirect('/showdiff')
+		
+	#flash('inital data=%s' % str(form.data))
+	return render_template('show_diff.html', 
+                           title='Policy Change Differences',
+                           form=form)						   						   

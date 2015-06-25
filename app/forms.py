@@ -206,3 +206,11 @@ class NewQuote(Form):
 	state = TextField('State', validators=[InputRequired()])
 	zip = TextField('Zip', validators=[InputRequired()])
 	
+class PolChgMessage(Form):
+		effectiveTimestamp = StringField('Effective Timestamp')
+		ipAddress = StringField('IP')
+		newPolicy = FormField(PolicyForm)
+		previousPolicy = FormField(PolicyForm)
+
+class ShowDiff(Form):
+		diff_json = FormField(PolicyForm)
