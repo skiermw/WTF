@@ -1,0 +1,83 @@
+{
+  "effectiveTimestamp": "2015-06-19T18:20:53.850Z",
+  "events": [
+    {
+      "@class": "events.changeQuote.ChangeQuoteRated",
+      "compositeDriverRatingFactorWithPoints": 0,
+      "compositeDriverRatingFactorWithoutPoints": 0,
+      "coverages": [],
+      "discounts": [
+        {
+          "id": "bf0558d0a70e420b99d6719ecfca683b",
+          "type": "PayInFull"
+        },
+        {
+          "id": "c4b710d8cf64492e905ac66b7bec6b85",
+          "type": "OnlineSubmission"
+        },
+        {
+          "id": "fb632acb0faf4d8e9909e97bc9744570",
+          "type": "EvidenceOfPriorInsurance"
+        }
+      ],
+      "drivers": [
+        {
+          "id": "4f620a9a3d9c480aaa68052a0a2db7e7",
+          "violationPoints": 0
+        }
+      ],
+      "fcraNoticeRequired": false,
+      "flyers": [
+        "DNI-1000.1",
+        "DNI-1001"
+      ],
+      "forms": [
+        "DPA-0001",
+        "DPA-0020",
+        "DPA-0100",
+        "DPA-0160",
+        "DPA-0400",
+        "DIL-7999"
+      ],
+      "id": "98699bfd986f4551905ccae336be29ff",
+      "notices": [
+        "DNI-1020"
+      ],
+      "quoteId": "6371a589fc754f0fa79512e9362b7ea2",
+      "territory": "28",
+      "totalDiscount": 9.95,
+      "totalPremium": 880.97,
+      "vehicles": [
+        {
+          "coverages": [
+            {
+              "id": "d158376311ba48aa9b8886b45e6e3c7c",
+              "premium": 336.5,
+              "type": "BodilyInjury"
+            },
+            {
+              "id": "cf0d54724bba460eb967f6ca8f77b599",
+              "premium": 210.4,
+              "type": "Collision"
+            },
+            {
+              "id": "f782000c68ce4b56b7f4a8131a4953a0",
+              "premium": 312.23,
+              "type": "PropertyDamage"
+            },
+            {
+              "id": "06fbfd92c71741cf8f4aed97c9d9dbec",
+              "premium": 21.84,
+              "type": "UninsuredMotorist"
+            }
+          ],
+          "id": "b5e18a80672f49a9bb6d6f98bcc11a04"
+        }
+      ]
+    }
+  ],
+  "storeRevision": 701,
+  "streamId": "6371a589fc754f0fa79512e9362b7ea2",
+  "streamRevision": 2,
+  "timestamp": "2015-06-19T18:20:53.850Z"
+}

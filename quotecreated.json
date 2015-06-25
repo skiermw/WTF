@@ -1,0 +1,152 @@
+{
+  "effectiveTimestamp": "2015-06-17T18:48:22.778Z",
+  "events": [
+    {
+      "@class": "events.changeQuote.ChangeQuoteCreated",
+      "changeQuote": {
+        "address": {
+          "city": "Skokie",
+          "county": "Cook",
+          "id": "8a06ba8528bb45da8a09b00c27be593f",
+          "latitude": 42.0101,
+          "longitude": -87.75354,
+          "state": "IL",
+          "street": "5014 Estes Ave",
+          "zip": "60077-3520"
+        },
+        "applicant": {
+          "age": 58,
+          "birthDate": "0001-01-01",
+          "firstName": "KATHY",
+          "gender": "Female",
+          "id": "29816751a5c54ee69b5ce34db816a917",
+          "lastName": "BOCKETT",
+          "maritalStatus": "Single",
+          "ssn": "*******"
+        },
+        "channelOfOrigin": "PublicWebsite",
+        "clueReferenceNumbers": [
+          "15163201300226"
+        ],
+        "coverages": [],
+        "drivers": [
+          {
+            "age": 58,
+            "birthDate": "0001-01-01",
+            "firstName": "KATHY",
+            "gender": "Female",
+            "id": "29816751a5c54ee69b5ce34db816a917",
+            "lastName": "BOCKETT",
+            "licenseNumber": "*******",
+            "licenseState": "IL",
+            "licenseStatus": "*******",
+            "maritalStatus": "Single",
+            "sequence": 1,
+            "ssn": "*******",
+            "suspensions": [],
+            "violations": [
+              {
+                "code": "08110",
+                "id": "49f72724b5014ddca9517c13e4c47836"
+              }
+            ]
+          }
+        ],
+        "effectiveDate": "2015-06-12T20:22:10.136Z",
+        "evidenceOfPriorInsurance": true,
+        "firstPolicyEffectiveDate": "2015-06-12T20:22:10.136Z",
+        "firstPolicySubmissionDate": "2015-06-12T20:22:10.136Z",
+        "flyers": [
+          "DNI-1000.1",
+          "DNI-1001"
+        ],
+        "id": "d816f880829e4429b19a9b8c6b722485",
+        "isASpeedRacer": false,
+        "notices": [
+          "DNI-1020"
+        ],
+        "revision": 1,
+        "status": "Active",
+        "vehicles": [
+          {
+            "businessUse": "NonBusinessUse",
+            "costSymbol": "025",
+            "coverages": [
+              {
+                "id": "78f4fdaacdf44f12b9cf42a859791c52",
+                "limits": [
+                  {
+                    "id": "d40b0abc478243b780a382358285293d",
+                    "type": "PerPerson",
+                    "value": 250000
+                  },
+                  {
+                    "id": "2de9cb2d6a4744ab99e5298abc37b92a",
+                    "type": "PerOccurrence",
+                    "value": 500000
+                  }
+                ],
+                "type": "BodilyInjury"
+              },
+              {
+                "id": "a295f334788345e4b8d46926967af595",
+                "limits": [
+                  {
+                    "id": "8e4c0a3cf97345139223966dd23f436b",
+                    "type": "PerOccurrence",
+                    "value": 250000
+                  }
+                ],
+                "type": "PropertyDamage"
+              },
+              {
+                "id": "71eb48b0bd6549be81f4bd118e1e84f5",
+                "limits": [
+                  {
+                    "id": "54749d153e904113ab903c696274342e",
+                    "type": "PerPerson",
+                    "value": 25000
+                  },
+                  {
+                    "id": "afdcedf8d6d3433aa806f4072d210343",
+                    "type": "PerOccurrence",
+                    "value": 50000
+                  }
+                ],
+                "type": "UninsuredMotorist"
+              },
+              {
+                "id": "7284132620ce45b7887e672876c86459",
+                "limits": [
+                  {
+                    "id": "562560c28f4648c6b0cb65c7273ec5f1",
+                    "type": "Deductible",
+                    "value": 1000
+                  }
+                ],
+                "type": "Collision"
+              }
+            ],
+            "id": "d2bd7450116c4e3b886f807c3e9b2f57",
+            "make": "Pontiac",
+            "model": "Montana",
+            "ownership": "Owned",
+            "previouslyInsured": true,
+            "pseudoVin": "  M X03 ",
+            "sequence": 1,
+            "trim": "Ext. Passenger Van",
+            "trimCode": "1",
+            "vin": "1GMDX03E63D154385",
+            "year": 2003
+          }
+        ]
+      },
+      "id": "99fc9b4e41d549fda63f3b20014a05eb",
+      "policyId": "a424a6597a234739b72386263d22c777"
+    }
+  ],
+  "storeRevision": 237,
+  "streamId": "d816f880829e4429b19a9b8c6b722485",
+  "streamRevision": 1,
+  "timestamp": "2015-06-17T18:48:22.778Z"
+}

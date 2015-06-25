@@ -1,0 +1,307 @@
+{
+  "additionalListedInsureds": [],
+  "address": {
+    "city": "Skokie",
+    "county": "Cook",
+    "id": "60c351560052456eb892ce2dab1ee8db",
+    "latitude": 42.0101,
+    "longitude": -87.75354,
+    "state": "IL",
+    "street": "5014 Estes Ave",
+    "zip": "60077-3520"
+  },
+  "applicant": {
+    "age": 58,
+    "birthDate": "0001-01-01",
+    "firstName": "KATHY",
+    "gender": "Female",
+    "id": "5c201bbe84b34a5797f565f9d6b06f34",
+    "lastName": "BOCKETT",
+    "maritalStatus": "Single",
+    "ssn": "*******"
+  },
+  "channelOfOrigin": "PublicWebsite",
+  "clueReferenceNumbers": [
+    "15168201200407"
+  ],
+  "company": "ShelterGeneral",
+  "compositeDriverRatingFactorWithPoints": 0,
+  "compositeDriverRatingFactorWithoutPoints": 0,
+  "coverages": [],
+  "discounts": [
+    {
+      "id": "9f0ac65cd4b144ec98e3da5f3230b34c",
+      "type": "PayInFull"
+    },
+    {
+      "id": "b859a0d8516f4d4084b67512851e4f98",
+      "type": "OnlineSubmission"
+    },
+    {
+      "id": "852172f84c1145688448530fb570514e",
+      "type": "EvidenceOfPriorInsurance"
+    }
+  ],
+  "drivers": [
+    {
+      "age": 58,
+      "birthDate": "0001-01-01",
+      "firstName": "KATHY",
+      "gender": "Female",
+      "id": "5c201bbe84b34a5797f565f9d6b06f34",
+      "lastName": "BOCKETT",
+      "licenseNumber": "*******",
+      "licenseState": "IL",
+      "licenseStatus": "*******",
+      "maritalStatus": "Single",
+      "sequence": 1,
+      "ssn": "*******",
+      "suspensions": [],
+      "violationPoints": 0,
+      "violations": [
+        {
+          "code": "08110",
+          "id": "f67c14f6565d4dbb857a2a5fb66ef2d2"
+        }
+      ]
+    }
+  ],
+  "effectiveDate": "2015-06-17T20:11:52.165Z",
+  "evidenceOfPriorInsurance": true,
+  "expirationDate": "2015-12-17T06:01:00.000Z",
+  "familyNumber": "000000003",
+  "fcraNoticeRequired": false,
+  "firstPolicyEffectiveDate": "2015-06-17T20:11:52.165Z",
+  "firstPolicySubmissionDate": "2015-06-17T20:11:52.165Z",
+  "flyers": [
+    "DNI-1000.1",
+    "DNI-1001"
+  ],
+  "forms": [
+    "DPA-0001",
+    "DPA-0020",
+    "DPA-0100",
+    "DPA-0160",
+    "DPA-0400",
+    "DIL-7999"
+  ],
+  "id": "f6bfc7bf1948432588ac70bdcd3e4fc8",
+  "lineOfBusiness": "JA",
+  "namedInsureds": [
+    {
+      "age": 58,
+      "birthDate": "0001-01-01",
+      "firstName": "KATHY",
+      "gender": "Female",
+      "id": "5c201bbe84b34a5797f565f9d6b06f34",
+      "lastName": "BOCKETT",
+      "maritalStatus": "Single",
+      "ssn": "*******"
+    }
+  ],
+  "nonDescribedVehicle": {
+    "coverages": [
+      {
+        "id": "a42722dc590549f38b5f4b92912d51fe",
+        "limits": [
+          {
+            "id": "19d7d300a2e342599d05e85b6a84ff8f",
+            "type": "PerPerson",
+            "value": 250000
+          },
+          {
+            "id": "2d541a5e936e48be9c5b88531ff737e8",
+            "type": "PerOccurrence",
+            "value": 500000
+          }
+        ],
+        "type": "BodilyInjury"
+      },
+      {
+        "id": "f33f866445aa453dafad938a4f3ef6ac",
+        "limits": [
+          {
+            "id": "f094e78e7c504e3196834b11c2585bc2",
+            "type": "PerOccurrence",
+            "value": 250000
+          }
+        ],
+        "type": "PropertyDamage"
+      },
+      {
+        "id": "2385e6f00e3d4bf79f47080bb93dc94f",
+        "limits": [
+          {
+            "id": "a5a9200240c7425abcb0cafbabc36c38",
+            "type": "PerPerson",
+            "value": 25000
+          },
+          {
+            "id": "a9eb41fb71f6415d929863a496ab5e72",
+            "type": "PerOccurrence",
+            "value": 50000
+          }
+        ],
+        "type": "UninsuredMotorist"
+      },
+      {
+        "id": "66efdc634fa2413981abe76de0cdffe2",
+        "limits": [
+          {
+            "id": "a31292e06b4947ad9ff401f3bfba2a63",
+            "type": "Deductible",
+            "value": 1000
+          }
+        ],
+        "type": "Collision"
+      }
+    ],
+    "id": "880f78be646e4b6ab595da4cbdbf3bc0",
+    "permissiveUserCoverages": [
+      {
+        "id": "fa8d4bf2ea7c486e917aac3d3926ebe2",
+        "limits": [
+          {
+            "id": "15386aedd15d4a0584584de417372c35",
+            "type": "PerPerson",
+            "value": 25000
+          },
+          {
+            "id": "c65091a65ab7429d92a5efb78c2b8945",
+            "type": "PerOccurrence",
+            "value": 50000
+          }
+        ],
+        "type": "BodilyInjury"
+      },
+      {
+        "id": "faba696fd6144ee18f362d171a54afb1",
+        "limits": [
+          {
+            "id": "fa5f2d7c5e534092a708a3059fff4ead",
+            "type": "PerOccurrence",
+            "value": 25000
+          }
+        ],
+        "type": "PropertyDamage"
+      }
+    ]
+  },
+  "notices": [
+    "DNI-1020"
+  ],
+  "policyNumber": "000000003",
+  "revision": 1,
+  "revisionTimestamp": "2015-06-17T20:11:52.219Z",
+  "status": "Pending",
+  "term": 6,
+  "territory": "28",
+  "totalDiscount": 9.95,
+  "totalPremium": 880.97,
+  "vehicles": [
+    {
+      "businessUse": "NonBusinessUse",
+      "costSymbol": "025",
+      "coverages": [
+        {
+          "id": "99d453b2768048deb9023653369b8af4",
+          "limits": [
+            {
+              "id": "4a1b9019c20e4e9299fbc9580c5c34db",
+              "type": "PerPerson",
+              "value": 250000
+            },
+            {
+              "id": "3ed9c149003f4398bc47c88dc90e16a9",
+              "type": "PerOccurrence",
+              "value": 500000
+            }
+          ],
+          "premium": 336.5,
+          "type": "BodilyInjury"
+        },
+        {
+          "id": "d5f6e36ebbce4a0e9a21b7fc20f5b1e8",
+          "limits": [
+            {
+              "id": "8223c0558d0d43b685d82c437e331624",
+              "type": "PerOccurrence",
+              "value": 250000
+            }
+          ],
+          "premium": 312.23,
+          "type": "PropertyDamage"
+        },
+        {
+          "id": "8ec6d52b8c6e41eb951f5d6664163a1c",
+          "limits": [
+            {
+              "id": "ad2addd00a0541038aa8ee47ab338f75",
+              "type": "PerPerson",
+              "value": 25000
+            },
+            {
+              "id": "38d74ae211064b0db9928d0346c64546",
+              "type": "PerOccurrence",
+              "value": 50000
+            }
+          ],
+          "premium": 21.84,
+          "type": "UninsuredMotorist"
+        },
+        {
+          "id": "5748ed1fedc64d9882b0a9b7bd4ed41c",
+          "limits": [
+            {
+              "id": "31425535c422429ca354c090bc00f8fc",
+              "type": "Deductible",
+              "value": 1000
+            }
+          ],
+          "premium": 210.4,
+          "type": "Collision"
+        }
+      ],
+      "id": "a78f39a2871e4808be449ea779a5b214",
+      "make": "Pontiac",
+      "model": "Montana",
+      "ownership": "Owned",
+      "permissiveUserCoverages": [
+        {
+          "id": "e043de8cdf9e44cb88efd88b84b22c17",
+          "limits": [
+            {
+              "id": "9c899a509d2b4fe0a766f22011e1004c",
+              "type": "PerPerson",
+              "value": 25000
+            },
+            {
+              "id": "484eced26e3a45a8b932c600e4c75a63",
+              "type": "PerOccurrence",
+              "value": 50000
+            }
+          ],
+          "type": "BodilyInjury"
+        },
+        {
+          "id": "62777ae148e648be8fdf9991c0ea6e36",
+          "limits": [
+            {
+              "id": "04c1e80f12a049e2b07b34ffd3b9bc4a",
+              "type": "PerOccurrence",
+              "value": 25000
+            }
+          ],
+          "type": "PropertyDamage"
+        }
+      ],
+      "previouslyInsured": true,
+      "pseudoVin": "  M X03 ",
+      "sequence": 1,
+      "trim": "Ext. Passenger Van",
+      "trimCode": "1",
+      "vin": "1GMDX03E63D154385",
+      "year": 2003
+    }
+  ]
+}

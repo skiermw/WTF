@@ -1,0 +1,11 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Change Quote</h1>
+  {%  import "__formhelpers.html" as forms %}
+<form action="" method="POST" name='policy'>
+{{ forms.render(form) }}
+<p><input type="Submit" value="Rate Quote"></p>
+</form>
+{% endblock %}
