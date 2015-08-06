@@ -5,7 +5,7 @@ from .model import Quote
 import json
 import urllib2
 import requests
-import json_delta
+import json_delta 
 
 	
 @app.route('/')
@@ -188,16 +188,13 @@ def polchgmessage():
 		chg_message = json.load(data_file)
 	
 	form = PolChgMessage.from_json(chg_message)
-	diff_string = json_delta.diff(chg_message['previousPolicy'], chg_message['newPolicy'])	
-	#diff_json = json_delta.udiff(chg_message['previousPolicy'], chg_message['newPolicy'], patch=diff_string)
+	diff_string = json_delta.diff(chg_message['previousPolicy'], chg_message['newPolicy'])
 	flash('diff_string = %s' % diff_string)
 	session['diff_json'] = diff_string
 	if form.validate_on_submit():
-		#flash('data=%s' % str(form.data))
-		#flash('form pol no =%s' % str(form.policyNumber.data))
+
 		return redirect('/showdiff')
 		
-	#flash('inital data=%s' % str(form.data))
 	return render_template('pol_chg_message.html', 
                            title='Policy Change Message',
                            form=form)

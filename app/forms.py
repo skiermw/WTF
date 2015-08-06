@@ -43,13 +43,13 @@ class Violation(Form):
 	code = TextField('Code')
 	
 class Driver(Form):
-	age = IntegerField('Age', validators=[InputRequired()])
-	birthDate = DateField('Birth Date', validators=[InputRequired()])
-	creditReport = FormField(CreditReport)
 	firstName = TextField('First Name', validators=[InputRequired()])
 	lastName = TextField('Last Name', validators=[InputRequired()])
 	gender = TextField('Gender')
 	id = StringField('ID')
+	age = IntegerField('Age', validators=[InputRequired()])
+	birthDate = DateField('Birth Date', validators=[InputRequired()])
+	creditReport = FormField(CreditReport)
 	licenseNumber = StringField('License Num')
 	licenseState = StringField('License State')
 	licenseStatus = StringField('License Status')
@@ -60,10 +60,10 @@ class Driver(Form):
 	violations = FieldList(FormField(Violation, label='Violations'))
 	
 class NamedInsured(Form):
-	age = IntegerField('Age', validators=[InputRequired()])
-	birthDate = DateField('Birth Date', validators=[InputRequired()])
 	firstName = TextField('First Name', validators=[InputRequired()])
 	lastName = TextField('Last Name', validators=[InputRequired()])
+	age = IntegerField('Age', validators=[InputRequired()])
+	birthDate = DateField('Birth Date', validators=[InputRequired()])
 	gender = TextField('Gender')
 	id = StringField('ID')
 	maritalStatus = StringField('Marital Status')
@@ -81,21 +81,23 @@ class Coverage(Form):
 	premium = DecimalField('Premium')
 	
 class Vehicle(Form):
+	year = StringField('Year')
+	make = StringField('Make')
+	model = StringField('Model')
+	trim = StringField('Trim')
+	trimCode = StringField('Trim Code')
 	businessUse = StringField('Bus. Use')
 	costSymbol = StringField('Cost Symbol')
 	coverages = FieldList(FormField(Coverage, label='Coverages'))
 	id = StringField('ID')
-	make = StringField('Make')
-	model = StringField('Model')
 	ownership = StringField('Ownership')
 	permissiveUserCoverages = FieldList(FormField(Coverage, label='Permissive User Coverages'))
 	previouslyInsured = StringField('Prev Ins?')
 	pseudoVin = StringField('Pseudo VIN')
 	sequence = StringField('Sequence')
-	trim = StringField('Trim')
-	trimCode = StringField('Trim Code')
+	
 	vin = StringField('VIN')
-	year = StringField('Year')
+	
 	
 class NonDescribedVehicle(Form):
 	coverages = FieldList(FormField(Coverage, label='Coverages'))
@@ -110,8 +112,8 @@ class PolicyForm(Form):
 	channelOfOrigin = TextField('Channel of Origin')
 	clueReferenceNumbers = TextField('CLUE Reference')
 	company = TextField('Company')
-	compositeDriverRatingFactorWithPoints = FloatField('Comp. Rate. Fact w/ Points')
-	compositeDriverRatingFactorWithoutPoints = FloatField('Comp. Rate. Fact w/o Points')
+	compositeDriverRatingFactorWithPoints = FloatField('Composite Rate. Fact w/ Points')
+	compositeDriverRatingFactorWithoutPoints = FloatField('Composite Rate. Fact w/o Points')
 #   coverages	
 	discounts = FieldList(FormField(Discount))
 	drivers = FieldList(FormField(Driver))

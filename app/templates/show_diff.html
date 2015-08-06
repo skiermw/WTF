@@ -2,10 +2,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Policy Change Message</h1>
+  <h1>Policy Change Differences</h1>
   {%  import "__formhelpers.html" as forms %}
 <form action="" method="POST" name='policy'>
 {{ forms.render(form) }}
-<p><input type="Submit" value="Policy Change Message"></p>
+<p><input type="Submit" value="Policy Change Differences"></p>
 </form>
 {% endblock %}
