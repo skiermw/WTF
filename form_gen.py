@@ -1,4 +1,4 @@
-# generated from swagger Policy model on 06/12/15 16:14:29 
+# generated from Swagger Policy model on 08/06/15 14:48:55 
  
 from flask.ext.wtf import Form
 from wtforms.fields import BooleanField, StringField, TextField, FloatField, FormField, IntegerField, DateField, SubmitField, FieldList

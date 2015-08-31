@@ -12,7 +12,7 @@ class Address(Form):
 	county = TextField('County', validators=[InputRequired()])
 	latitude = FloatField('Latitude')
 	longitude = FloatField('Longitude')
-	id = StringField('ID')
+	#id = StringField('ID')
 	
 class Applicant(Form):
 	firstName = TextField('First Name', validators=[InputRequired()])
@@ -20,36 +20,36 @@ class Applicant(Form):
 	lastName = TextField('Last Name', validators=[InputRequired()])
 	birthDate = DateField('Birth Date', validators=[InputRequired()])
 	age = IntegerField('Age', validators=[InputRequired()])
-	id = StringField('ID')
+	#id = StringField('ID')
 	
 class Reason(Form):
 	code = TextField('Code')
 	Description = StringField('Description')
-	id = StringField('ID')
+	#id = StringField('ID')
 	
 class CreditReport(Form):
-	id = TextField('Id')
+	#id = TextField('Id')
 	reasons = FieldList(FormField(Reason))
 	referenceNumber = TextField('Reference Number')
 	score = IntegerField('Score')
 	status = TextField('Status')
 	
 class Discount(Form):
-	id = TextField('Id')
+	#id = TextField('Id')
 	type = TextField('Type')
 	
 class Violation(Form):
-	id = TextField('Id')
+	#id = TextField('Id')
 	code = TextField('Code')
 	
 class Driver(Form):
 	firstName = TextField('First Name', validators=[InputRequired()])
 	lastName = TextField('Last Name', validators=[InputRequired()])
 	gender = TextField('Gender')
-	id = StringField('ID')
+	#id = StringField('ID')
 	age = IntegerField('Age', validators=[InputRequired()])
 	birthDate = DateField('Birth Date', validators=[InputRequired()])
-	creditReport = FormField(CreditReport)
+	#creditReport = FormField(CreditReport)
 	licenseNumber = StringField('License Num')
 	licenseState = StringField('License State')
 	licenseStatus = StringField('License Status')
@@ -65,18 +65,18 @@ class NamedInsured(Form):
 	age = IntegerField('Age', validators=[InputRequired()])
 	birthDate = DateField('Birth Date', validators=[InputRequired()])
 	gender = TextField('Gender')
-	id = StringField('ID')
+	#id = StringField('ID')
 	maritalStatus = StringField('Marital Status')
 	ssn = StringField('SSN')
 	
 class Limit(Form):
-	id = StringField('ID')
+	#id = StringField('ID')
 	type = StringField('Type')
 	value = IntegerField('Value')
 	
 class Coverage(Form):
 	type = StringField('Type')
-	id = StringField('ID')
+	#id = StringField('ID')
 	limits = FieldList(FormField(Limit, label='Limits'))
 	premium = DecimalField('Premium')
 	
@@ -89,7 +89,7 @@ class Vehicle(Form):
 	businessUse = StringField('Bus. Use')
 	costSymbol = StringField('Cost Symbol')
 	coverages = FieldList(FormField(Coverage, label='Coverages'))
-	id = StringField('ID')
+	#id = StringField('ID')
 	ownership = StringField('Ownership')
 	permissiveUserCoverages = FieldList(FormField(Coverage, label='Permissive User Coverages'))
 	previouslyInsured = StringField('Prev Ins?')
@@ -101,7 +101,7 @@ class Vehicle(Form):
 	
 class NonDescribedVehicle(Form):
 	coverages = FieldList(FormField(Coverage, label='Coverages'))
-	id = StringField('ID')
+	#id = StringField('ID')
 	permissiveUserCoverages = FieldList(FormField(Coverage, label='Permissive User Coverages'))
 		
 class PolicyForm(Form):
@@ -124,7 +124,7 @@ class PolicyForm(Form):
 	fcraNoticeRequired = StringField('FCRA Notice Req')
 	firstPolicyEffectiveDate = StringField('First Pol Eff Date')
 	forms = FieldList(StringField('Form Number'))
-	id = StringField('Pol ID')
+	#id = StringField('Pol ID')
 	lineOfBusiness = StringField('LOB')
 	namedInsureds = FieldList(FormField(NamedInsured))
 	vehicles = FieldList(FormField(Vehicle))
@@ -169,7 +169,7 @@ class QuoteForm(Form):
 	fcraNoticeRequired = StringField('FCRA Notice Req')
 	firstPolicyEffectiveDate = StringField('First Pol Eff Date')
 	forms = FieldList(StringField('Form Number'))
-	id = StringField('Pol ID')
+	#id = StringField('Pol ID')
 	lineOfBusiness = StringField('LOB')
 	namedInsureds = FieldList(FormField(NamedInsured))
 	vehicles = FieldList(FormField(Vehicle))
