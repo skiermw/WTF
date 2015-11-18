@@ -1,0 +1,14 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Load Policy to target environment</h1>
+<form name="env" action="results.html" method='POST'>
+    <select name="env">
+        <option value="DEVL">DEVL</option>
+        <option value="TEST">TEST</option>
+        <option value="DEMO">DEMO</option>
+    </select>
+    <button type="submit">Load Policy</button>
+</form>
+{% endblock %}
