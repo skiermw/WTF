@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Load Test Policies to Demo at {{ run }}</h1>
+    {% for policy in policies %}
+    <div><p><b>{{ policy.policy_desc }}</b></p>
+	<ul>
+		<li>Policy Description: {{ policy.policy_desc }}</li>
+		<li>Policy Number: {{ policy.policy_number }}</li>
+		<li>Stream ID: {{ policy.policy_stream_ID }}</li>
+		<li>Effective Date: {{ policy.policy_eff_date }}</li>
+	</ul>
+	</div>
+    {% endfor %}
+{% endblock %}

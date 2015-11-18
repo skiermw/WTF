@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Hi, {{ user.nickname }}!</h1>
-    {% for post in posts %}
-    <div><p>{{ post.author.nickname }} says: <b>{{ post.body }}</b></p></div>
-    {% endfor %}
+    <h1>Load Test Policies to Say Policy Admin</h1>
+
+    <div><p><b>Things you can do here</b></p>
+	<ul>
+		<li>Load a sample policy</li>
+		<li>Lookup the a policy number and see the formatted fields</li>
+		<li>Download a sample policy json file to modify on your own!</li>
+		<li>Upload and load a policy json file</li>
+	</ul>
+	</div>
+
 {% endblock %}

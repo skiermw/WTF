@@ -1,23 +1,30 @@
-<html>
-  <head>
-    {% if title %}
-    <title>{{ title }} - Policy</title>
-    {% else %}
-    <title>Policy</title>
-    {% endif %}
-  </head>
-  <body>
-    <div>Policy: <a href="/index">Home</a><a href="/select_pol"> Select Policy</a><a href="/policy"> Policy</a><a href="/drivers"> Drivers</a><a href="/copytoquote"> Copy To Quote</a><a href="/changequote"> Change Quote</a<a href="/vehicles"> Vehicles</a><a href="/newquote">New Quote</a><a href="/polchgmessage">Pol Chg Message</a></</div>
-    <hr>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul>
-        {% for message in messages %}
-            <li>{{ message }} </li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-    {% block content %}{% endblock %}
-  </body>
-</html>
+{% extends "bootstrap/base.html" %}
+
+{% block title %}Say System{% endblock %}
+
+{% block navbar %}
+<div  class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle"
+             data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+             <a class="navbar-brand"  href="/">Say Policy Admin</a>
+
+        </div>
+        <div class="navbar-collapse collapse">
+         <ul class="nav navbar-nav">
+             <li><a href="/load">Load Sample Policy</a></li>
+             <li><a href="/select_pol">Lookup Policy</a></li>
+             <li><a href="/load_policy.json">Download Sample JSON</a></li>
+             <li><a href="/upload_file">Upload Policy JSON</a></li>
+         </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

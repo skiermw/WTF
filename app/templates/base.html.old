@@ -1,0 +1,23 @@
+<html>
+  <head>
+    {% if title %}
+    <title>{{ title }} - Policy</title>
+    {% else %}
+    <title>Policy</title>
+    {% endif %}
+  </head>
+  <body>
+    <div>Policy: <a href="/index">Home </a><a href="/load"> Load Policies </a><a href="/select_pol"> Select Policy</a></div>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li>{{ message }} </li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </body>
+</html>

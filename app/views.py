@@ -1,216 +1,125 @@
-from flask import render_template, flash, redirect, request, session
+from flask import Flask, render_template, Response, send_file,\
+    flash, redirect, request, session, send_from_directory, make_response, abort
+
 from app import app
-from .forms import NewQuote, ShowDiff, PolChgMessage, PolicyForm, SelectPolForm, Drivers, Vehicles, CreateQuoteFromPolicy, ChangeQuote
+import web_load_policy 
+from .forms import PolicyForm, SelectPolForm
+from .inputforms import InputPolicyForm
 from .model import Quote
+from time import strftime
 import json
 import urllib2
 import requests
-import json_delta 
+#import json_delta
+
 
 	
 @app.route('/')
 @app.route('/index')
 def index():
-    user = {'nickname': 'Mark'}  # fake user
-    posts = [  # fake array of posts
-        { 
-            'author': {'nickname': 'John'}, 
-            'body': 'Beautiful day in Portland!' 
-        },
-        { 
-            'author': {'nickname': 'Susan'}, 
-            'body': 'The Avengers movie was so cool!' 
-        }
-    ]
-    return render_template("index.html",
-                           title='Home',
-                           user=user,
-                           posts=posts)
+
+    return render_template("index.html")
+
+@app.route('/home')
+def home():
+    return render_template('home.html')
+
 
 @app.route('/select_pol', methods=['GET', 'POST'])
 def select_pol():
     form = SelectPolForm()
     if form.validate_on_submit():
-	
-		#flash('pol selected =%s' % (str(form.selPolicyNumber.data)).zfill(9))
-		session['polnum'] = (str(form.selPolicyNumber.data)).zfill(9)
-		return redirect('/policy')
-		
+        session['polnum'] = (str(form.selPolicyNumber.data)).zfill(9)
+        return redirect('/policy')
+    
     return render_template("select_pol.html",
                            title='Policy Selection',
                            form=form)	
 						   
-@app.route('/copytoquote', methods=['GET', 'POST'])	
-def copy_to_quote():
-    form = CreateQuoteFromPolicy()
-    if form.validate_on_submit():
-		#flash('pol selected =%s' % (str(form.selPolicyNumber.data)).zfill(9))
-		session['polnum'] = (str(form.selPolicyNumber.data)).zfill(9)
-		return redirect('/changequote')
-		
-    return render_template("select_pol_copy_quote.html",
-                           title='Copy Policy To Quote',
-                           form=form)	
-						   
-@app.route('/newquote', methods=['GET', 'POST'])	
-def new_quote():
-	
-	quote_obj = Quote()
-	form = NewQuote(obj=quote_obj)
-	#form.birthDate.data = 3-3-1988
-	if form.validate_on_submit():
-		payload = {}
-		payload['applicant']= {}
-		payload['address']={}
-		payload['channelOfOrigin'] = 'PublicWebsite'
-		payload['applicant']['firstName'] = form.firstName.data
-		payload['applicant']['middleName'] = form.middleName.data
-		payload['applicant']['lastName'] = form.lastName.data
-		payload['applicant']['suffix'] = form.suffix.data
-		payload['applicant']['birthDate'] = str(form.birthDate.data)
-		payload['applicant']['email'] = form.email.data
-		payload['applicant']['phoneNumber'] = form.phoneNumber.data
-		payload['address']['street'] = form.street.data
-		payload['address']['street2'] = form.street2.data
-		payload['address']['city'] = form.city.data
-		payload['address']['state'] = form.state.data
-		payload['address']['zip'] = form.zip.data
-		data = json.dumps(payload)
-		url = 'http://dcdemoappsrv1:8081/direct/quote'
-		headers={'content-type':'application/json'}
-		response = requests.post(url, data, headers=headers)
-		quote_json = response.json()
-		session['x_quote'] = quote_json
-		return redirect('/viewquote')
-		#flash('session %s' % session['quote'])
-		#return render_template("create_quote.html",
-		#						title='Create Quote',
-		#						form=form)			
-		
-	return render_template("create_quote.html",
-                           title='Create Quote',
-                           form=form)							   
 
-@app.route('/viewquote', methods=['GET', 'POST'])
-def view_quote():
-	
-	quote_json = session['x_quote']
-	form = ChangeQuote.from_json(quote_json)
-	return render_template('change_quote.html', 
-                           title='View Quote',
-                           form=form)
-						   
-@app.route('/changequote', methods=['GET', 'POST'])
-def change_quote():
-	polnum = session['polnum']
-	url = 'http://dcdemoappsrv1:8081/direct/policy?policyNumber=%s&everything=true&discounts=true&coverages=true&vehicles=true&nonDescribedVehicle=true&applicant=true&drivers=true&namedInsureds=true&additionalListedInsureds=true' % polnum
-	response = urllib2.urlopen(url).read()
-	pol_json = json.loads(response)
-	session['policy'] = pol_json
-	
-	polid = pol_json['id']
-	streamrev = pol_json['revision']
-	
-	copy_to_quote_url = 'http://dcdemoappsrv1:8081/direct/policy/%s/%s/changeQuote' % (polid, streamrev)
-	
-	response = requests.post(copy_to_quote_url)
-	quote_json = response.json()
-	session['timestamp'] = quote_json['timestamp']
-	session['quotenum'] = quote_json['events'][0]['changeQuote']['id']
-	session['streamrev'] = quote_json['events'][0]['changeQuote']['revision']
-	form = ChangeQuote.from_json(quote_json)
-	
-	
-	if form.validate_on_submit():
-		quotenum = session['quotenum']
-		streamrev = str(session['streamrev'])
-		rate_url = 'http://dcdemoappsrv1:8083/direct/changeQuote/%s/%s/rate' % (quotenum, streamrev)
-		#rate_url = 'http://dcdemoappsrv1:8083/direct/changeQuote/d816f880829e4429b19a9b8c6b722485/1/rate' 
-		response = requests.post(rate_url)
-		rate_json = response.json()
-		#session['ratejson'] = rate_json
-		flash('rate_json=%s' % str(rate_json))
-		return render_template('change_quote.html', 
-                           title='Change Quote',
-                           form=form)
-		#return redirect('/changequote')
-	#flash('rate_json=%s' % str(session['ratejson']))	
-	flash('inital data=%s' % str(quote_json))
-	return render_template('change_quote.html', 
-                           title='Change Quote',
-                           form=form)
-	
 @app.route('/policy', methods=['GET', 'POST'])
 def policy():
 	
 	polnum = session['polnum']
-	url = 'http://dcdemoappsrv1:8081/direct/policy?policyNumber=%s&everything=true&discounts=true&coverages=true&vehicles=true&nonDescribedVehicle=true&applicant=true&drivers=true&namedInsureds=true&additionalListedInsureds=true' % polnum
+	url = 'http://dctestappsrv1:8081/direct/policy?policyNumber=%s&everything=true&discounts=true&coverages=true&vehicles=true&nonDescribedVehicle=true&applicant=true&drivers=true&namedInsureds=true&additionalListedInsureds=true' % polnum
 	response = urllib2.urlopen(url).read()
 	pol_json = json.loads(response)
 	session['policy'] = pol_json
 	form = PolicyForm.from_json(pol_json)
 		
 	if form.validate_on_submit():
-		#flash('data=%s' % str(form.data))
-		#flash('form pol no =%s' % str(form.policyNumber.data))
 		return redirect('/index')
 		
-	#flash('inital data=%s' % str(form.data))
 	return render_template('policy.html', 
                            title='Policy Form',
                            form=form)
 						   
 	
-@app.route('/drivers', methods=['GET', 'POST'])
-def drivers():
-	pol_json = session['policy']
-	form = Drivers.from_json(pol_json)
-	
-	return render_template("drivers.html",
-                           title='Drivers',
-                           form=form)		
+@app.route('/load')
+def load():
+    policies = web_load_policy.ReadPolJSON('test', 'load_policy.json')
+    run = strftime("%Y-%m-%d %H:%M:%S")
+    #run = 'sssss'
 
-@app.route('/vehicles', methods=['GET', 'POST'])						   
-def vehicles():
-	pol_json = session['policy']
-	form = Vehicles.from_json(pol_json)
-	
-	return render_template("vehicles.html",
-                           title='Vehicles',
-                           form=form)
-						   
-@app.route('/polchgmessage', methods=['GET', 'POST'])
-def polchgmessage():
-	filename = 'polchangemessage.json'
-	infile = open(filename, 'r')
+    #print('failureCode = %s' % policies['failureCodes'])
+    if 'defaultMessage' in policies[0]:
+        return render_template("loaderror.html",
+                           title="Whoa! We can't do that.",
+                           errors=policies)
+    else:
+        return render_template("loadsuccess.html",
+                           title='Test Policies',
+                           run=run,
+                           policies=policies)
 
-	with open(filename) as data_file:
-		chg_message = json.load(data_file)
-	
-	form = PolChgMessage.from_json(chg_message)
-	diff_string = json_delta.diff(chg_message['previousPolicy'], chg_message['newPolicy'])
-	flash('diff_string = %s' % diff_string)
-	session['diff_json'] = diff_string
-	if form.validate_on_submit():
+@app.route('/upload_file')
+def upload_file():
 
-		return redirect('/showdiff')
-		
-	return render_template('pol_chg_message.html', 
-                           title='Policy Change Message',
-                           form=form)
+    return render_template("upload.html")
 
-@app.route('/showdiff', methods=['GET', 'POST'])
-def showdiff():
-	diff_json = session['diff_json']
-	
-	form = ShowDiff.from_json(diff_json)
-	
-	if form.validate_on_submit():
-		#flash('data=%s' % str(form.data))
-		#flash('form pol no =%s' % str(form.policyNumber.data))
-		return redirect('/showdiff')
-		
-	#flash('inital data=%s' % str(form.data))
-	return render_template('show_diff.html', 
-                           title='Policy Change Differences',
-                           form=form)						   						   
+
+@app.route('/import', methods= ['POST'])
+def import_objects():
+        file = request.files['file']
+        app.logger.debug('uploading file ' + file.filename)
+        if file and allowed_file(file.filename):
+            #extract content
+            content = file.read()
+            policies = web_load_policy.LoadPolJSON('test', content)
+            run = strftime("%Y-%m-%d %H:%M:%S")
+
+            if 'defaultMessage' in policies[0]:
+                return render_template("loaderror.html",
+                                   title="Whoa! We can't do that.",
+                                   errors=policies)
+            else:
+                return render_template("loadsuccess.html",
+                                   title='Test Policies',
+                                   run=run,
+                                   policies=policies)
+            '''
+            print content
+
+            jsonResponse = json.dumps({'file_content':content})
+            print jsonResponse
+            response = Response(jsonResponse,  mimetype='application/json')
+            return response
+            '''
+        else:
+             abort(make_response("File extension not acceptable", 400))
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
+
+@app.route("/load_policy.json")
+def getFile():
+    file_name = 'load_policy.json'
+    return send_file(file_name, as_attachment=True)
+    '''
+    headers = {"Content-Disposition": "attachment; filename=%s" % file_name}
+    with open(file_name, 'r') as f:
+        body = f.read()
+    return make_response((body, headers))
+    '''

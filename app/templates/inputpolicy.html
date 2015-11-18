@@ -1,10 +1,10 @@
  {% extends "base.html" %}
 
 {% block content %}
-  <h1>Policy</h1>
+  <h1>Input Policy</h1>
   {%  import "__formhelpers.html" as forms %}
-<form action="" method="POST" name='policy'>
+<form action="{{ url_for('inputpolicy') }} " method="POST">
 {{ forms.render(form) }}
- <!-- <p><input type="Submit" value="Update Policy"></p> -->
+ <p><input type="Submit" value="Input Policy"></p>
 </form>
 {% endblock %}

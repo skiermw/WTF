@@ -1,51 +1,51 @@
 from flask.ext.wtf import Form
-from wtforms.fields import BooleanField, StringField, TextField, FloatField, FormField, IntegerField, DateField, SubmitField, FieldList, DecimalField
+from wtforms.fields import BooleanField, StringField, StringField, FloatField, FormField, IntegerField, DateField, SubmitField, FieldList, DecimalField
 from wtforms.validators import DataRequired, InputRequired
 
 
 class Address(Form):
-	street = TextField('Street', validators=[InputRequired()])
-	street2 = TextField('Street2')
-	city = TextField('City', validators=[InputRequired()])
-	state = TextField('State', validators=[InputRequired()])
-	zip = TextField('Zip', validators=[InputRequired()])
-	county = TextField('County', validators=[InputRequired()])
+	street = StringField('Street', validators=[InputRequired()])
+	street2 = StringField('Street2')
+	city = StringField('City', validators=[InputRequired()])
+	state = StringField('State', validators=[InputRequired()])
+	zip = StringField('Zip', validators=[InputRequired()])
+	county = StringField('County', validators=[InputRequired()])
 	latitude = FloatField('Latitude')
 	longitude = FloatField('Longitude')
-	#id = StringField('ID')
+
 	
 class Applicant(Form):
-	firstName = TextField('First Name', validators=[InputRequired()])
-	middleName = TextField('Middle Name')
-	lastName = TextField('Last Name', validators=[InputRequired()])
+	firstName = StringField('First Name', validators=[InputRequired()])
+	middleName = StringField('Middle Name')
+	lastName = StringField('Last Name', validators=[InputRequired()])
 	birthDate = DateField('Birth Date', validators=[InputRequired()])
 	age = IntegerField('Age', validators=[InputRequired()])
 	#id = StringField('ID')
 	
 class Reason(Form):
-	code = TextField('Code')
+	code = StringField('Code')
 	Description = StringField('Description')
 	#id = StringField('ID')
 	
 class CreditReport(Form):
-	#id = TextField('Id')
+	#id = StringField('Id')
 	reasons = FieldList(FormField(Reason))
-	referenceNumber = TextField('Reference Number')
+	referenceNumber = StringField('Reference Number')
 	score = IntegerField('Score')
-	status = TextField('Status')
+	status = StringField('Status')
 	
 class Discount(Form):
-	#id = TextField('Id')
-	type = TextField('Type')
+	#id = StringField('Id')
+	type = StringField('Type')
 	
 class Violation(Form):
-	#id = TextField('Id')
-	code = TextField('Code')
+	#id = StringField('Id')
+	code = StringField('Code')
 	
 class Driver(Form):
-	firstName = TextField('First Name', validators=[InputRequired()])
-	lastName = TextField('Last Name', validators=[InputRequired()])
-	gender = TextField('Gender')
+	firstName = StringField('First Name', validators=[InputRequired()])
+	lastName = StringField('Last Name', validators=[InputRequired()])
+	gender = StringField('Gender')
 	#id = StringField('ID')
 	age = IntegerField('Age', validators=[InputRequired()])
 	birthDate = DateField('Birth Date', validators=[InputRequired()])
@@ -60,11 +60,11 @@ class Driver(Form):
 	violations = FieldList(FormField(Violation, label='Violations'))
 	
 class NamedInsured(Form):
-	firstName = TextField('First Name', validators=[InputRequired()])
-	lastName = TextField('Last Name', validators=[InputRequired()])
+	firstName = StringField('First Name', validators=[InputRequired()])
+	lastName = StringField('Last Name', validators=[InputRequired()])
 	age = IntegerField('Age', validators=[InputRequired()])
 	birthDate = DateField('Birth Date', validators=[InputRequired()])
-	gender = TextField('Gender')
+	gender = StringField('Gender')
 	#id = StringField('ID')
 	maritalStatus = StringField('Marital Status')
 	ssn = StringField('SSN')
@@ -105,13 +105,13 @@ class NonDescribedVehicle(Form):
 	permissiveUserCoverages = FieldList(FormField(Coverage, label='Permissive User Coverages'))
 		
 class PolicyForm(Form):
-	policyNumber = TextField('Policy Number')
+	policyNumber = StringField('Policy Number')
 	applicant = FormField(Applicant)
 	address = FormField(Address)
 	
-	channelOfOrigin = TextField('Channel of Origin')
-	clueReferenceNumbers = TextField('CLUE Reference')
-	company = TextField('Company')
+	channelOfOrigin = StringField('Channel of Origin')
+	clueReferenceNumbers = StringField('CLUE Reference')
+	company = StringField('Company')
 	compositeDriverRatingFactorWithPoints = FloatField('Composite Rate. Fact w/ Points')
 	compositeDriverRatingFactorWithoutPoints = FloatField('Composite Rate. Fact w/o Points')
 #   coverages	
@@ -129,7 +129,7 @@ class PolicyForm(Form):
 	namedInsureds = FieldList(FormField(NamedInsured))
 	vehicles = FieldList(FormField(Vehicle))
 	nonDescribedVehicle = FormField(NonDescribedVehicle)
-	policyNumber = StringField('Policy Num')
+	#policyNumber = StringField('Policy Num')
 	revision = StringField('Revision')
 	revisionTimestamp = StringField('Revison Timestamp')
 	status = StringField('Status')
@@ -139,7 +139,7 @@ class PolicyForm(Form):
 	totalPremium = FloatField('Total Premium')
 
 class SelectPolForm(Form):
-	selPolicyNumber = TextField('Policy Number to Select')
+	selPolicyNumber = StringField('Policy Number to Select')
 	
 
 class Drivers(Form):
@@ -149,16 +149,16 @@ class Vehicles(Form):
 	vehicles = FieldList(FormField(Vehicle))
 
 class CreateQuoteFromPolicy(Form):
-	selPolicyNumber = TextField('Policy Number to Copy to Quote')
+	selPolicyNumber = StringField('Policy Number to Copy to Quote')
 
-class QuoteForm(Form):
+class LoadForm(Form):
+	testPolicyDescription = StringField('Test Policy Description')
 	applicant = FormField(Applicant)
 	address = FormField(Address)
-	channelOfOrigin = TextField('Channel of Origin')
-	clueReferenceNumbers = TextField('CLUE Reference')
-	company = TextField('Company')
-	compositeDriverRatingFactorWithPoints = FloatField('Comp. Rate. Fact w/ Points')
-	compositeDriverRatingFactorWithoutPoints = FloatField('Comp. Rate. Fact w/o Points')
+	channelOfOrigin = StringField('Channel of Origin')
+	clueReferenceNumbers = StringField('CLUE Reference')
+	company = StringField('Company')
+
     #coverages	FieldList(FormField(Coverage))
 	discounts = FieldList(FormField(Discount))
 	drivers = FieldList(FormField(Driver))
@@ -183,36 +183,11 @@ class QuoteForm(Form):
 	totalDiscount = FloatField('Total Discount')
 	totalPremium = FloatField('Total Premium')
 	
-class EventsForm(Form):
-	changeQuote = FormField(QuoteForm)
-		
-class ChangeQuote(Form):
-	effectiveTimestamp = StringField('Effective Timestamp')
-	events = FieldList(FormField(EventsForm))
-	storeRevision = IntegerField('Store Revision')
-	streamId = StringField('Stream ID')
-	streamRevision = IntegerField('Stream Revision')
-	timestamp = StringField('Timestamp')
-	
-class NewQuote(Form):
-	firstName = StringField('First Name', validators=[InputRequired()])
-	middleName = StringField('Middle Name')
-	lastName = StringField('First Name', validators=[InputRequired()])
-	suffix = StringField('Suffix')
-	birthDate = DateField('Birth Date', validators=[InputRequired()], format='%m-%d-%Y')
-	email = StringField('email', validators=[InputRequired()])
-	phoneNumber = StringField('Phone', validators=[InputRequired()])
-	street = TextField('Street', validators=[InputRequired()])
-	street2 = TextField('Street2')
-	city = TextField('City', validators=[InputRequired()])
-	state = TextField('State', validators=[InputRequired()])
-	zip = TextField('Zip', validators=[InputRequired()])
-	
-class PolChgMessage(Form):
-		effectiveTimestamp = StringField('Effective Timestamp')
-		ipAddress = StringField('IP')
-		newPolicy = FormField(PolicyForm)
-		previousPolicy = FormField(PolicyForm)
 
-class ShowDiff(Form):
-		diff_json = FormField(PolicyForm)
+
+class LoadTest(Form):
+	policy_desc = StringField('Test Policy Description')
+	policy_number = StringField('Policy Number')
+	policy_stream_ID = StringField('Stream ID')
+	policy_eff_date = StringField('Effective Date')
+	

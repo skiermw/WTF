@@ -1,10 +1,11 @@
- {% extends "base.html" %}
+<!-- extend from base layout -->
+{% extends "base.html" %}
 
 {% block content %}
-  <h1>Policy</h1>
+  <h1>Policy Load</h1>
   {%  import "__formhelpers.html" as forms %}
 <form action="" method="POST" name='policy'>
 {{ forms.render(form) }}
- <!-- <p><input type="Submit" value="Update Policy"></p> -->
+<p><input type="Submit" value="Load Test Policies"></p>
 </form>
 {% endblock %}
